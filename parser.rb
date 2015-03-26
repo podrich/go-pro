@@ -5,7 +5,7 @@ constitution='constitution.txt'
 File.open(constitution).each do |line|
 	lines+=1
     line.each_char do |character|
-    	if character==""||character==':'||character=='.'||character==";"||character==","
+    	if character==" "||character==':'||character=='.'||character==";"||character==","
     		words+=1
     	end
     	characters+=1
