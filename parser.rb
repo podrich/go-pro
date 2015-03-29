@@ -5,6 +5,7 @@ nonProperLines=0
 nonProperWords=0
 nonProperCharacters=0
 constitution='constitution.txt'
+articles=0
 File.open(constitution).each do |line|
 	lines+=1
 	words+=line.scan(/\S+/).size
@@ -13,9 +14,15 @@ File.open(constitution).each do |line|
     end
     line=line.upcase
 	candidates=line.scan(/\S+/)
-	isLineProper=false	
+	isLineProper=false
+	counter=false	
 	candidates.each do |choice|
 		choice.gsub(/[^A-Za-z0-9\s]/i, '')
+		if choice=="ARTICLE"&&counter==false
+			puts choice
+			articles+=1
+			counter=true
+		end
 		if choice=="I"||choice=="WE"||choice=="THEY"||choice=="A"||choice=="AND"||choice=="THE"||choice=="THAT"||choice=="OF"||choice=="FOR"||choice=="WITH"
 			nonProperWords+=1
 			if isLineProper==false
@@ -34,3 +41,7 @@ words=words.to_s
 characters=characters.to_s
 puts "all: #{lines}   #{words}   #{characters} #{constitution}"
 puts "proper: #{properLines}  #{properWords}  #{properCharacters}"
+puts "Total Articles: "
+puts "Total Sections: "
+puts "Total Sections per Article:"
+puts articles 
