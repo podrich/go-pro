@@ -37,8 +37,6 @@ File.open(constitution).each do |line|
 	end	
 	previous=candidates
 end
-puts articles 
-puts sections
 properLines=lines - nonProperLines
 properWords=words - nonProperWords
 properCharacters=characters - nonProperCharacters
@@ -47,6 +45,6 @@ words=words.to_s
 characters=characters.to_s
 puts "all: #{lines}   #{words}   #{characters} #{constitution}"
 puts "proper: #{properLines}  #{properWords}  #{properCharacters}"
-puts "Total Articles: "
-puts "Total Sections: "
+puts "Total Articles: #{articles}"
+puts "Total Sections: #{sections}"
 puts "Total Sections per Article:"
