@@ -11,6 +11,7 @@ previous=" "
 sectionsInArticles=Array.new
 sectionCounter=0
 hasBegunScanning=false
+endOfArticles=false
 File.open(constitution).each do |line|
 	lines+=1
 	words+=line.scan(/\S+/).size
@@ -18,11 +19,14 @@ File.open(constitution).each do |line|
     	characters+=1
     end
     candidates=line.scan(/\S+/)
-    if candidates[0]=="Article"&&previous.size==0
+    if candidates[0]=="Article"&&previous.size==0||line.include?("Amendment")&&previous.size==0&&endOfArticles==false
     	articles+=1
-    	if hasBegunScanning==true
+    	if hasBegunScanning==true&&endOfArticles==false
     		sectionsInArticles.push(sectionCounter)
     		sectionCounter=0
+    		if line.include?("Amendment")&&previous.size==0
+    			endOfArticles=true
+    		end
     	else
     		hasBegunScanning=true
     	end
