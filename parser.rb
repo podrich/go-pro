@@ -8,6 +8,9 @@ constitution='constitution.txt'
 articles=0
 sections=0
 previous=" "
+sectionsInArticles=Array.new
+sectionCounter=0
+hasBegunScanning=false
 File.open(constitution).each do |line|
 	lines+=1
 	words+=line.scan(/\S+/).size
@@ -17,9 +20,16 @@ File.open(constitution).each do |line|
     candidates=line.scan(/\S+/)
     if candidates[0]=="Article"&&previous.size==0
     	articles+=1
+    	if hasBegunScanning==true
+    		sectionsInArticles.push(sectionCounter)
+    		sectionCounter=0
+    	else
+    		hasBegunScanning=true
+    	end
     end
     if candidates[0]=="Section"&&previous.size==0
     	sections+=1
+    	sectionCounter+=1
     end
     line=line.upcase
 	candidates=line.scan(/\S+/)
@@ -48,3 +58,8 @@ puts "proper: #{properLines}  #{properWords}  #{properCharacters}"
 puts "Total Articles: #{articles}"
 puts "Total Sections: #{sections}"
 puts "Total Sections per Article:"
+counter=0
+sectionsInArticles.each do |result|
+	puts result
+	counter+=1
+end
