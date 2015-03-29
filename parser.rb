@@ -6,6 +6,7 @@ nonProperWords=0
 nonProperCharacters=0
 constitution='constitution.txt'
 articles=0
+sections=0
 previous=" "
 File.open(constitution).each do |line|
 	lines+=1
@@ -16,6 +17,9 @@ File.open(constitution).each do |line|
     candidates=line.scan(/\S+/)
     if candidates[0]=="Article"&&previous.size==0
     	articles+=1
+    end
+    if candidates[0]=="Section"&&previous.size==0
+    	sections+=1
     end
     line=line.upcase
 	candidates=line.scan(/\S+/)
@@ -34,6 +38,7 @@ File.open(constitution).each do |line|
 	previous=candidates
 end
 puts articles 
+puts sections
 properLines=lines - nonProperLines
 properWords=words - nonProperWords
 properCharacters=characters - nonProperCharacters
