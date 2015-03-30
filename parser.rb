@@ -20,13 +20,13 @@ File.open(constitution).each do |line|
     end
     candidates=line.scan(/\S+/)
     if candidates[0]=="Article"&&previous.size==0||line.include?("Amendment")&&previous.size==0&&endOfArticles==false
-    	articles+=1
     	if hasBegunScanning==true&&endOfArticles==false
     		sectionsInArticles.push(sectionCounter)
     		sectionCounter=0
     		if line.include?("Amendment")&&previous.size==0
     			endOfArticles=true
     		end
+    		articles+=1
     	else
     		hasBegunScanning=true
     	end
@@ -64,6 +64,6 @@ puts "Total Sections: #{sections}"
 puts "Total Sections per Article:"
 counter=0
 sectionsInArticles.each do |result|
-	puts result
+	puts "  Article #{counter+1}: #{result}"
 	counter+=1
 end
